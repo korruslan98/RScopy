@@ -1,0 +1,245 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>RoomSeller Clone</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page-shell">
+      <aside class="sidebar">
+        <div>
+          <div class="brand">
+            <div class="brand__logo">RS</div>
+            <div>
+              <strong>RoomSeller</strong>
+              <p>Платформа поставщика и продавца</p>
+            </div>
+          </div>
+
+          <div class="role-switcher">
+            <button class="role-btn active" data-role="supplier">Поставщик</button>
+            <button class="role-btn" data-role="seller">Продавец</button>
+          </div>
+
+          <nav class="nav-list">
+            <button class="nav-item active" data-tab="overview">Дашборд</button>
+            <button class="nav-item" data-tab="integrations">Интеграции</button>
+            <button class="nav-item" data-tab="catalog">Каталог</button>
+            <button class="nav-item" data-tab="orders">Заказы</button>
+          </nav>
+        </div>
+
+        <div class="sidebar-footer">
+          <div class="mini-card">
+            <span>Синхронизация</span>
+            <strong id="sync-status">WB + Ozon + МойСклад</strong>
+          </div>
+        </div>
+      </aside>
+
+      <main class="content">
+        <section class="hero">
+          <div>
+            <span class="eyebrow">Clone of roomseller.ru</span>
+            <h1>Личный кабинет для поставщика и продавца с каталогом, интеграциями и заказами.</h1>
+            <p>
+              Интерфейс повторяет идею RoomSeller: поставщик подключает МойСклад, продавец подключает API ключи WB/Ozon,
+              видит каталог поставщика и работает с заказами в одном окне.
+            </p>
+          </div>
+          <div class="hero-stats">
+            <article>
+              <span>SKU</span>
+              <strong id="hero-products">128</strong>
+            </article>
+            <article>
+              <span>Активные продавцы</span>
+              <strong>14</strong>
+            </article>
+            <article>
+              <span>Заказы за сутки</span>
+              <strong id="hero-orders">36</strong>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel active" data-panel="overview">
+          <div class="section-header">
+            <div>
+              <h2 id="overview-title">Кабинет поставщика</h2>
+              <p id="overview-description">Подключение МойСклад, контроль остатков и все заказы продавцов.</p>
+            </div>
+          </div>
+
+          <div class="grid grid--three">
+            <article class="card metric-card">
+              <span>Каталог поставщика</span>
+              <strong>128 товаров</strong>
+              <p>97 позиций уже синхронизированы с WB или Ozon.</p>
+            </article>
+            <article class="card metric-card">
+              <span>Заказы сегодня</span>
+              <strong>36 заказов</strong>
+              <p>Видно название, артикул, цены и магазин, где размещён заказ.</p>
+            </article>
+            <article class="card metric-card">
+              <span>Остатки</span>
+              <strong>Обновление каждые 5 мин</strong>
+              <p>Данные приходят из МойСклад и передаются в маркетплейсы.</p>
+            </article>
+          </div>
+
+          <div class="grid grid--two">
+            <article class="card info-card">
+              <div class="card-heading">
+                <h3>Как работает сценарий</h3>
+                <span class="badge badge--purple">MVP</span>
+              </div>
+              <ol class="steps-list">
+                <li>Поставщик подключает МойСклад и выгружает каталог.</li>
+                <li>Продавец подключает API-ключи WB / Ozon.</li>
+                <li>Товары связываются с каналами продаж и получают значки маркетплейсов.</li>
+                <li>Остатки и заказы синхронизируются в обе стороны.</li>
+              </ol>
+            </article>
+
+            <article class="card info-card">
+              <div class="card-heading">
+                <h3>Статусы интеграций</h3>
+              </div>
+              <div class="integration-state-list" id="overview-integrations"></div>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-panel="integrations">
+          <div class="section-header">
+            <div>
+              <h2>Интеграции</h2>
+              <p>Отдельные сценарии для поставщика и продавца.</p>
+            </div>
+          </div>
+
+          <div class="grid grid--two">
+            <article class="card form-card" id="supplier-form-card">
+              <div class="card-heading">
+                <h3>Личный кабинет поставщика</h3>
+                <span class="badge">МойСклад</span>
+              </div>
+              <p>Поставщик подключает аккаунт МойСклад и публикует каталог для продавцов.</p>
+              <form class="integration-form">
+                <label>
+                  Название компании
+                  <input type="text" value='RoomSeller Supplier LLC' />
+                </label>
+                <label>
+                  Логин МойСклад
+                  <input type="email" value='supply@roomseller.ru' />
+                </label>
+                <label>
+                  Токен доступа
+                  <input type="password" value='msk_live_5hJ3...Fg7' />
+                </label>
+                <label>
+                  Частота обновления остатков
+                  <select>
+                    <option>Каждые 5 минут</option>
+                    <option>Каждые 15 минут</option>
+                    <option>Раз в час</option>
+                  </select>
+                </label>
+                <button type="button" class="primary-btn">Подключить МойСклад</button>
+              </form>
+            </article>
+
+            <article class="card form-card" id="seller-form-card">
+              <div class="card-heading">
+                <h3>Кабинет продавца</h3>
+                <span class="badge badge--pink">WB / Ozon</span>
+              </div>
+              <p>Продавец подключает API-ключи маркетплейсов и получает доступ к каталогу поставщика.</p>
+              <form class="integration-form">
+                <label>
+                  Имя магазина
+                  <input type="text" value='Home Textile Store' />
+                </label>
+                <label>
+                  WB API ключ
+                  <input type="password" value='wb_live_uR8...98d' />
+                </label>
+                <label>
+                  Ozon API ключ
+                  <input type="password" value='oz_9hQ...1Ta' />
+                </label>
+                <label>
+                  Client ID Ozon
+                  <input type="text" value='2394811' />
+                </label>
+                <button type="button" class="primary-btn">Сохранить API-ключи</button>
+              </form>
+            </article>
+          </div>
+        </section>
+
+        <section class="tab-panel" data-panel="catalog">
+          <div class="section-header section-header--stack-mobile">
+            <div>
+              <h2>Каталог товаров</h2>
+              <p>Товары выгружаются из МойСклад, а остатки синхронизируются с WB и/или Ozon.</p>
+            </div>
+            <div class="toolbar">
+              <input id="search-input" type="search" placeholder="Поиск по названию или артикулу" />
+              <select id="sync-filter">
+                <option value="all">Все товары</option>
+                <option value="synced">Только синхронизированные</option>
+                <option value="wb">Только WB</option>
+                <option value="ozon">Только Ozon</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="catalog-grid" id="catalog-grid"></div>
+        </section>
+
+        <section class="tab-panel" data-panel="orders">
+          <div class="section-header section-header--stack-mobile">
+            <div>
+              <h2>Заказы</h2>
+              <p id="orders-description">Поставщик видит заказы всех продавцов, продавец — только свои.</p>
+            </div>
+            <div class="toolbar">
+              <select id="market-filter">
+                <option value="all">Все магазины</option>
+                <option value="WB">Wildberries</option>
+                <option value="Ozon">Ozon</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="table-card">
+            <table>
+              <thead>
+                <tr>
+                  <th>Название</th>
+                  <th>Артикул</th>
+                  <th>Цена закупки</th>
+                  <th>Цена продажи</th>
+                  <th>Магазин</th>
+                  <th>Продавец</th>
+                </tr>
+              </thead>
+              <tbody id="orders-body"></tbody>
+            </table>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <script src="app.js"></script>
+  </body>
+</html>
